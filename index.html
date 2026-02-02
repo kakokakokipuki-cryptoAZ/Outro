@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>THE_FINAL_MESSAGE</title>
+    <style>
+        body { background: black; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
+        .hidden { display: none; }
+        h1 { font-size: 5vw; text-align: center; }
+        .troll-tag { position: fixed; bottom: 10px; right: 10px; color: #333; font-size: 12px; }
+    </style>
+</head>
+<body>
+
+    <div id="start-screen">
+        <button onclick="playOutro()" style="padding: 20px; font-size: 20px; cursor: pointer;">クリックしてメッセージを確認</button>
+    </div>
+
+    <div id="outro-screen" class="hidden">
+        <h1>Suprise!</h1>
+    </div>
+
+    <!-- 音楽ファイル -->
+    <audio id="bgm" src="outro.mp3"></audio>
+
+    <div class="troll-tag">THIS IS A TROLL</div>
+
+    <script>
+        function playOutro() {
+            // 画面切り替え
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('outro-screen').classList.remove('hidden');
+
+            // 音楽再生
+            const bgm = document.getElementById('bgm');
+            bgm.play();
+
+            // 背景をカラフルに点滅させる演出（お好みで）
+            let colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
+            setInterval(() => {
+                document.body.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            }, 200);
+        }
+    </script>
+</body>
+</html>
