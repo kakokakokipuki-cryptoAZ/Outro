@@ -2,44 +2,55 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>THE_FINAL_MESSAGE</title>
+    <title>FINAL_NOTICE</title>
     <style>
-        body { background: black; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
-        .hidden { display: none; }
-        h1 { font-size: 5vw; text-align: center; }
+        body { background: #000; color: #fff; font-family: sans-serif; margin: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        
+        /* 最初に押させるボタン（これがないと音が出ない） */
+        #gate-btn {
+            padding: 25px 50px; font-size: 24px; font-weight: bold; background: red; color: white;
+            border: none; border-radius: 10px; cursor: pointer; box-shadow: 0 0 20px red;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        #outro-screen { display: none; text-align: center; }
+        h1 { font-size: 10vw; text-shadow: 0 0 20px #fff; }
         .troll-tag { position: fixed; bottom: 10px; right: 10px; color: #333; font-size: 12px; }
     </style>
 </head>
 <body>
 
-    <div id="start-screen">
-        <button onclick="playOutro()" style="padding: 20px; font-size: 20px; cursor: pointer;">クリックしてメッセージを確認</button>
+    <!-- ステップ1：音を出すための「許可」を友達にクリックさせる -->
+    <div id="gate">
+        <button id="gate-btn" onclick="letThePartyStart()">CLICK TO FIX ERROR</button>
     </div>
 
-    <div id="outro-screen" class="hidden">
-        <h1>Suprise!</h1>
+    <!-- ステップ2：ネタばらし画面 -->
+    <div id="outro-screen">
+        <h1>GG</h1>
+        <p>This was a TROLL</p>
     </div>
-
-    <!-- 音楽ファイル -->
-    <audio id="bgm" src="outro.mp3"></audio>
-
-    <div class="troll-tag">THIS IS A TROLL</div>
 
     <script>
-        function playOutro() {
-    document.getElementById('start-screen').innerHTML = `
-        <iframe width="0" height="0" 
-            src="https://www.youtube.com" 
-            frameborder="0" allow="autoplay">
-        </iframe>
-        <h1 style="font-size:8vw;">ドッキリ成功！ｗ</h1>
-    `;
-    // 背景フラッシュ開始
-    setInterval(() => {
-        document.body.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`;
-    }, 100);
-}
+        function letThePartyStart() {
+            // 画面を隠して切り替え
+            document.getElementById('gate').style.display = 'none';
+            document.getElementById('outro-screen').style.display = 'block';
 
+            // YouTubeからサビ(1:00)を再生する隠しプレイヤーを作成
+            const iframe = document.createElement('iframe');
+            iframe.setAttribute('src', 'https://www.youtube.com');
+            iframe.setAttribute('allow', 'autoplay');
+            iframe.setAttribute('style', 'display:none; width:0; height:0; border:none;');
+            document.body.appendChild(iframe);
+
+            // 背景フラッシュ開始（これぞXenogenesis）
+            setInterval(() => {
+                document.body.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            }, 100);
+        }
     </script>
+    <div class="troll-tag">THIS IS A TROLL</div>
 </body>
 </html>
