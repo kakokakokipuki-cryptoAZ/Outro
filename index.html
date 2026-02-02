@@ -27,20 +27,19 @@
 
     <script>
         function playOutro() {
-            // 画面切り替え
-            document.getElementById('start-screen').classList.add('hidden');
-            document.getElementById('outro-screen').classList.remove('hidden');
+    document.getElementById('start-screen').innerHTML = `
+        <iframe width="0" height="0" 
+            src="https://www.youtube.com" 
+            frameborder="0" allow="autoplay">
+        </iframe>
+        <h1 style="font-size:8vw;">ドッキリ成功！ｗ</h1>
+    `;
+    // 背景フラッシュ開始
+    setInterval(() => {
+        document.body.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`;
+    }, 100);
+}
 
-            // 音楽再生
-            const bgm = document.getElementById('bgm');
-            bgm.play();
-
-            // 背景をカラフルに点滅させる演出（お好みで）
-            let colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
-            setInterval(() => {
-                document.body.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            }, 200);
-        }
     </script>
 </body>
 </html>
